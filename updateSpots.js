@@ -8,12 +8,13 @@
  */
 
 const updateSpots = function(state, appointments, id) {
+  const foundDay = state.days.find(d => d.appointments.includes(id));
 
-  // THIS IS NOT THE SOLUTION!!!
-  const updatedDays   = [...state.days]
+  const spots = foundDay.appointments.filter(apptID => appointments[apptID].interview === null).length;
 
-  // return an updated days array
-  return updatedDays
+  const updatedDays = state.days.map(d => d.name === foundDay.name ? { ...foundDay, spots } : d);
+
+  return updatedDays;
 };
 
 module.exports = updateSpots;
